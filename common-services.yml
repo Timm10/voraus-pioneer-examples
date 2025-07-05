@@ -1,0 +1,31 @@
+services:
+  codemeter-base:
+    hostname: codemeter
+    image: docker.io/wibusystems/codemeter:8.20
+    environment:
+      CM_REMOTE_SERVER: host.docker.internal
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  voraus-core-base:
+    image: voraus.jfrog.io/docker/voraus-core:2.12.2
+    hostname: voraus-core
+    environment:
+      CODEMETER_HOST: codemeter
+
+  voraus-3d-visu-base:
+    image: voraus.jfrog.io/docker/voraus-3d-visu:0.15.1
+    hostname: voraus-3d-visu
+    environment:
+      CODEMETER_HOST: codemeter
+      V3DVISU_ALLOWED_HOSTS: '["voraus-core"]'
+      V3DVISU_SCENE__COLOR: "#222"
+      V3DVISU_SCENE__GRID__CELL_COLOR: "#454545"
+      V3DVISU_SCENE__GRID__SECTION_COLOR: "#555"
+      V3DVISU_LOGO: "voraus-gradient-white"
+
+  devcontainer-base:
+    image: voraus.jfrog.io/docker/voraus-pioneer-examples:1.10.0
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    environment:
+      CODEMETER_HOST: codemeter

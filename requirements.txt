@@ -1,0 +1,3 @@
+voraus-3d-visu==0.15.1
+voraus-robot-arm==1.0.0-beta
+voraus-simulation==0.9.5

@@ -1,0 +1,12 @@
+// For format details, see https://aka.ms/devcontainer.json.
+{
+  "name": "Existing Dockerfile",
+  "build": {
+    "context": "..",
+    "dockerfile": "../Dockerfile"
+  },
+  "features": {
+    "ghcr.io/nikiforovall/devcontainer-features/dotnet-csharpier:1": {}
+  },
+  "workspaceFolder": "/workspaces/voraus-pioneer-examples"
+}

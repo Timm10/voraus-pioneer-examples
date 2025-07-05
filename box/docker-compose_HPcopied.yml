@@ -1,0 +1,28 @@
+services:
+  codemeter:
+    hostname: codemeter
+    image: artifactory.vorausrobotik.com/docker/voraus-codemeter:1.0.0
+    environment:
+      LICENSE_SERVER: host.docker.internal
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  voraus-3d-visu:
+    image: artifactory.vorausrobotik.com/docker/voraus-3d-visu:0.15.1
+    hostname: voraus-3d-visu
+    ports:
+      - 8077:80
+    environment:
+      CODEMETER_HOST: codemeter
+    depends_on:
+      - codemeter
+
+  devcontainer:
+    image: artifactory.vorausrobotik.com/docker/voraus-3d-visu:0.15.1
+    volumes:
+      - .:/home/localuser/workspace:cached
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    environment:
+      CODEMETER_HOST: codemeter
+    depends_on:
+      - codemeter
